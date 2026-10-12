@@ -1,0 +1,17 @@
+drop function if exists public.admin_decide_chat_invitation(uuid, boolean, text);
+drop policy if exists "users: conversation partners read" on public.users;
+drop table if exists public.reports;
+drop table if exists public.blocks;
+drop table if exists public.reactions;
+drop table if exists public.message_translations;
+drop table if exists public.messages;
+drop table if exists public.conversation_members;
+drop table if exists public.conversations;
+drop table if exists public.chat_invitations;
+drop function if exists private.can_invite(uuid);
+drop function if exists private.message_conversation(uuid);
+drop function if exists private.conversation_under_review(uuid);
+drop function if exists private.can_post(uuid);
+drop function if exists private.is_blocked_between(uuid, uuid);
+drop function if exists private.shares_conversation(uuid);
+drop function if exists private.is_member(uuid);

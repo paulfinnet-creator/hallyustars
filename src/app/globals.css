@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* `dark:` follows the resolved theme: the OS setting unless data-theme overrides it. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* Day: "Hanok by day" */
+:root {
+  --hs-bg: #f7f3ea;
+  --hs-surface: #fffdf8;
+  --hs-band: #efe7d8;
+  --hs-ink: #1e1b18;
+  --hs-muted: #5c554c;
+  --hs-border: #e2d8c5;
+  --hs-primary: #3f7a69;
+  --hs-primary-ink: #ffffff;
+  --hs-accent: #b83a2b;
+  --hs-gold: #c9982f;
+  color-scheme: light;
+}
+
+/* Night: "Seoul by night" */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hs-bg: #0e1026;
+    --hs-surface: #171a36;
+    --hs-band: #12153a;
+    --hs-ink: #edebf5;
+    --hs-muted: #a9a6c4;
+    --hs-border: #2a2e55;
+    --hs-primary: #ff4fa3;
+    --hs-primary-ink: #1a0b14;
+    --hs-accent: #ff5c7a;
+    --hs-gold: #f2c14e;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --hs-bg: #0e1026;
+  --hs-surface: #171a36;
+  --hs-band: #12153a;
+  --hs-ink: #edebf5;
+  --hs-muted: #a9a6c4;
+  --hs-border: #2a2e55;
+  --hs-primary: #ff4fa3;
+  --hs-primary-ink: #1a0b14;
+  --hs-accent: #ff5c7a;
+  --hs-gold: #f2c14e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--hs-bg);
+  --color-surface: var(--hs-surface);
+  --color-band: var(--hs-band);
+  --color-ink: var(--hs-ink);
+  --color-muted: var(--hs-muted);
+  --color-border: var(--hs-border);
+  --color-primary: var(--hs-primary);
+  --color-primary-ink: var(--hs-primary-ink);
+  --color-accent: var(--hs-accent);
+  --color-gold: var(--hs-gold);
+
+  /* Obangsaek: trims and patchwork only */
+  --color-obang-blue: #1f4e79;
+  --color-obang-red: #b83a2b;
+  --color-obang-yellow: #d9a93f;
+  --color-obang-white: #e9e1cf;
+  --color-obang-black: #1e1b18;
+
+  /* Set per locale by the classes from src/app/fonts.ts */
+  --font-heading: var(--hs-font-heading), serif;
+  --font-ui: var(--hs-font-ui), system-ui, sans-serif;
+}
+
+/* `next dev` only (src/app/fonts.dev.ts): system fonts instead of Google fonts. */
+.hs-system-fonts {
+  --hs-font-heading: ui-serif, "Noto Serif CJK KR", "Noto Serif", Georgia;
+  --hs-font-ui: system-ui, "Noto Sans CJK KR", "Noto Sans";
+}
+
+body {
+  background-color: var(--hs-bg);
+  color: var(--hs-ink);
+  font-family: var(--hs-font-ui), system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--hs-font-heading), serif;
+  text-wrap: balance;
+}
+
+/* Korean breaks between words (spaces), not between syllables. */
+:lang(ko) {
+  word-break: keep-all;
+}
+
+/* Typing dots pulse like concert lightsticks (stilled by the reduced-motion rule below). */
+@keyframes hs-lightstick {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 8px var(--hs-primary);
+  }
+}
+
+.hs-lightstick {
+  animation: hs-lightstick 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

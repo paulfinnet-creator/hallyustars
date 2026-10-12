@@ -1,0 +1,7 @@
+node_modules
+.next
+package-lock.json
+messages
+playwright-report
+test-results
+src/lib/analytics/zoneCountries.json
